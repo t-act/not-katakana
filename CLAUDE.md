@@ -8,19 +8,6 @@
 - 枝を切るのは、途中の状態を `main` に置きたくない大きな変更のときだけ。切った場合も短命にして早くマージする
 - `main` は常にデプロイできる状態に保つ
 
-## コミットメッセージ
-
-件名に Conventional Commits の型を付ける。付け忘れは `~/.config/git/hooks/commit-msg`
-（グローバル設定）が commit の時点で弾く。
-
-```
-<型>: <内容>          feat: ルーム作成を追加する
-<型>(<範囲>): <内容>  fix(ws): 再接続時の取りこぼしを直す
-```
-
-使う型は feat / fix / docs / test / ci / build / refactor / perf / style / chore / revert。
-本文には Why を書く。何をしたかは差分を見ればわかる。
-
 ## 履歴の書き換え
 
 公開リポジトリなので、force-push しても旧コミットは GitHub 上に GC 待ちで残る。
