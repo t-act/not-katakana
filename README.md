@@ -55,6 +55,9 @@ Cloudflare Worker (Python)
 
 必要なもの: [uv](https://docs.astral.sh/uv/) 0.12.3 以上、Node.js 22 以上。
 
+`pywrangler` は PATH 上の `wrangler` を呼ぶため、Node のバージョンが古いと
+「Wrangler requires at least Node.js v22」で止まります。nvm などで切り替えてください。
+
 ```bash
 uv sync
 cd frontend && npm install && cd ..
