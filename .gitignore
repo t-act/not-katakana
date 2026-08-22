@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv-workers
+python_modules
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+dist-ssr/
+*.local
+
+# Cloudflare
+.wrangler/
+.dev.vars
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# pywrangler が作る作業領域
+.venv-workers/
+python_modules/

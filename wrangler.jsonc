@@ -1,0 +1,36 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "not-katakana",
+	"main": "backend/src/entry.py",
+	"compatibility_date": "2025-11-02",
+	"compatibility_flags": [
+		"python_workers",
+		"python_dedicated_snapshot"
+	],
+	// フロントの成果物を同じ Worker から配信する。同一オリジンにすることで
+	// CORS 設定と WebSocket エンドポイントの環境変数切り替えが不要になる
+	"assets": {
+		"directory": "./frontend/dist/",
+		"binding": "ASSETS",
+		"not_found_handling": "single-page-application"
+	},
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "GAME_ROOM",
+				"class_name": "GameRoom"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": [
+				"GameRoom"
+			]
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+}

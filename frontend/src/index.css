@@ -1,0 +1,147 @@
+@import 'tailwindcss';
+
+@theme {
+  /* 墨と生成り。暗い部屋でも明るい部屋でも目が痛くならない濃度に寄せている */
+  --color-sumi: #16130f;
+  --color-sumi-raised: #201b15;
+  --color-sumi-edge: #2e2820;
+  --color-kinari: #f2ece1;
+  --color-kinari-dim: #a2988a;
+  --color-kinari-faint: #6b6459;
+
+  /* 差し色は朱ひとつ。金は勝者と得点のためだけに使う */
+  --color-shu: #d2452e;
+  --color-shu-deep: #a3301f;
+  --color-kin: #c8a24a;
+  --color-ai: #3c5a6e;
+
+  --font-mincho: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-gothic: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-sumi);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--color-sumi);
+    color: var(--color-kinari);
+    font-family: var(--font-gothic);
+    font-feature-settings: 'palt';
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 紙の粒立ち。単色の面が続くと画面が安っぽく見えるので薄く敷く */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  #root {
+    display: flex;
+    min-height: 100dvh;
+    flex-direction: column;
+  }
+
+  button {
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  input {
+    font-family: inherit;
+  }
+}
+
+@layer utilities {
+  .font-mincho {
+    font-family: var(--font-mincho);
+  }
+
+  /* 見出しの脇に引く罫。紙面の区切りを模している */
+  .rule-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .rule-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: color-mix(in srgb, var(--color-kinari) 18%, transparent);
+  }
+
+  @keyframes press-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.4rem) scale(0.97);
+      filter: blur(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+  }
+  /* 版が刷られるように現れる。お題の登場だけに使う */
+  .animate-press-in {
+    animation: press-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .animate-rise {
+    animation: rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes seal {
+    0% {
+      opacity: 0;
+      transform: scale(1.7) rotate(-14deg);
+    }
+    55% {
+      opacity: 1;
+      transform: scale(0.92) rotate(-6deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(-7deg);
+    }
+  }
+  /* 朱肉を押しつけたような当たり判定の演出 */
+  .animate-seal {
+    animation: seal 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  }
+
+  @keyframes pulse-urgent {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.45;
+    }
+  }
+  .animate-urgent {
+    animation: pulse-urgent 0.9s ease-in-out infinite;
+  }
+}

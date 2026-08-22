@@ -1,0 +1,35 @@
+[project]
+name = "not-katakana"
+version = "0.1.0"
+description = "カタカナ語を説明して当てあう対面パーティーゲーム"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi",
+    "pydantic>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "workers-py",
+    "workers-runtime-sdk",
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+# Workers 側と同じく src 直下をトップレベルに置く。実行環境と import の形を揃えるため
+pythonpath = ["backend/src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+# 日本語の文章で使う全角記号を「紛らわしい文字」として弾かせない
+allowed-confusables = ["×", "－", "：", "，", "、"]
+
+[tool.ruff.lint.isort]
+# Workers ランタイムが用意するモジュール。ローカルには実体が無いので明示する
+known-third-party = ["js", "pyodide", "workers", "asgi"]
