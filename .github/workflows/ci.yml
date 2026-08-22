@@ -1,0 +1,61 @@
+name: CI
+
+# main は直接コミットで進めるため、push が実質の本検査になる。
+# pull_request も拾っておくと、大きめの変更を枝で進めたときに
+# マージ前のゲートとしてそのまま働く。
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# 同じ枝に続けて push したとき、古い実行を打ち切って待ち時間を減らす
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: バックエンド
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10
+        with:
+          python-version: "3.13"
+          enable-cache: true
+
+      # --locked は uv.lock が pyproject.toml と食い違っていれば失敗する。
+      # 手元とCIで別の依存を引く事故を防ぐため
+      - name: 依存を同期する
+        run: uv sync --locked
+
+      - name: 書式を検査する
+        run: |
+          uv run ruff check backend/ scripts/
+          uv run ruff format --check backend/ scripts/
+
+      # ゲームルールは I/O を持たないので Workers ランタイム抜きで検証できる
+      - name: テストを実行する
+        run: uv run pytest -q
+
+  frontend:
+    name: フロントエンド
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: 依存を導入する
+        run: npm ci
+        working-directory: frontend
+
+      # build は tsc -b を含むので、型検査とビルドをまとめて兼ねる
+      - name: 型検査とビルドを通す
+        run: npm run build
+        working-directory: frontend
