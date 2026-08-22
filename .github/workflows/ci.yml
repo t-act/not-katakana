@@ -20,7 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: astral-sh/setup-uv@v10
+      # setup-uv は v8 以降メジャー版の移動タグを出していないため、
+      # v10 のような短い指定では解決できない
+      - uses: astral-sh/setup-uv@v10.0.1
         with:
           python-version: "3.13"
           enable-cache: true
