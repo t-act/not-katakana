@@ -22,7 +22,7 @@ export function ResultScreen() {
         <p className="mb-4 text-[0.7rem] tracking-[0.35em] text-kinari-faint">
           {room.settings.total_laps}周 おわり
         </p>
-        <p className="font-mincho text-[2.5rem] leading-tight text-kin">
+        <p className="font-mincho font-black text-[2.5rem] leading-tight text-kin">
           {winners.map((w) => w.name).join('・')}
         </p>
         <p className="mt-3 text-sm text-kinari-dim">

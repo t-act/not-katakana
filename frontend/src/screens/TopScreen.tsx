@@ -31,7 +31,7 @@ export function TopScreen() {
     <Screen>
       <div className="flex flex-1 flex-col justify-center">
         <div className="animate-rise mb-14 border-l-2 border-shu pl-5">
-          <h1 className="font-mincho text-5xl leading-[1.15] tracking-tight text-kinari">
+          <h1 className="font-mincho font-black text-5xl leading-[1.15] tracking-tight text-kinari">
             カタカナ
             <br />
             抜き
@@ -63,7 +63,7 @@ export function TopScreen() {
               spellCheck={false}
               placeholder="AB12CD"
               aria-label="合いことば"
-              className="min-h-[max(3.5rem,52px)] min-w-0 flex-1 border border-kinari-faint bg-transparent px-4 text-center font-mincho text-2xl tracking-[0.3em] text-kinari placeholder:text-kinari-faint/50 focus:border-kinari focus:outline-none"
+              className="min-h-[max(3.5rem,52px)] min-w-0 flex-1 border border-kinari-faint bg-transparent px-4 text-center font-mincho text-2xl tracking-[0.3em] text-kinari placeholder:text-kinari-faint focus:border-kinari focus:outline-none"
             />
             <div className="w-24 shrink-0">
               <Button

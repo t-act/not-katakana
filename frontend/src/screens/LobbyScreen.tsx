@@ -25,11 +25,11 @@ export function LobbyScreen() {
   const shareUrl = `${location.origin}/r/${room.code}`
 
   useEffect(() => {
-    // 紙に刷ったように、生成りの地へ墨で。読み取り側の当たり外れも減る
+    // 紙に刷ったように、白地へ墨で。真っ黒より淡いが、読み取りに要る比率は満たしている
     QRCode.toDataURL(shareUrl, {
       margin: 2,
       width: 360,
-      color: { dark: '#16130f', light: '#f2ece1' },
+      color: { dark: '#3d3b38', light: '#ffffff' },
     })
       .then(setQr)
       .catch(() => setQr(null))
@@ -147,7 +147,7 @@ function Choices({ label, unit, options, value, disabled, onSelect }: ChoicesPro
             onClick={() => onSelect(option)}
             className={`min-h-[max(3rem,44px)] flex-1 border text-sm transition-colors disabled:cursor-default ${
               option === value
-                ? 'border-shu bg-shu/12 text-kinari'
+                ? 'border-shu bg-shu/10 text-kinari'
                 : 'border-sumi-edge text-kinari-faint disabled:opacity-40'
             }`}
           >

@@ -29,7 +29,7 @@ export function RoundResultScreen() {
           {result.outcome === 'correct' ? (
             <>
               <span className="animate-seal absolute inset-0 rounded-full border-[3px] border-shu" />
-              <span className="animate-seal font-mincho text-2xl tracking-widest text-shu">
+              <span className="animate-seal font-mincho font-black text-2xl tracking-widest text-shu">
                 当
               </span>
             </>
@@ -41,7 +41,7 @@ export function RoundResultScreen() {
         </div>
 
         <p className="mb-3 text-[0.7rem] tracking-[0.35em] text-kinari-faint">おだいは</p>
-        <p className="animate-press-in font-mincho text-[2.5rem] leading-tight text-kinari">
+        <p className="animate-press-in font-mincho font-black text-[2.5rem] leading-tight text-kinari">
           {result.word.word}
         </p>
 

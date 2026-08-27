@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react'
 type Variant = 'primary' | 'outline' | 'quiet'
 
 const VARIANT_CLASS: Record<Variant, string> = {
-  primary: 'bg-shu text-kinari border-shu active:bg-shu-deep active:border-shu-deep',
+  primary: 'bg-shu-deep text-white border-shu-deep active:bg-shu-press active:border-shu-press',
   outline: 'bg-transparent text-kinari border-kinari-faint active:bg-sumi-raised',
   quiet: 'bg-transparent text-kinari-dim border-transparent active:text-kinari',
 }

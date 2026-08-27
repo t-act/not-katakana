@@ -28,7 +28,7 @@ function MasterView() {
         <p className="mb-4 text-[0.7rem] tracking-[0.35em] text-kinari-faint">おだい</p>
         <p
           key={room.current_word?.id}
-          className="animate-press-in text-center font-mincho text-[2.75rem] leading-tight tracking-tight text-kinari"
+          className="animate-press-in text-center font-mincho font-black text-[2.75rem] leading-tight tracking-tight text-kinari"
         >
           {room.current_word?.word ?? '…'}
         </p>
@@ -78,7 +78,7 @@ function ListenerView() {
         </p>
 
         <p
-          className={`font-mincho text-[6.5rem] leading-none tabular-nums ${
+          className={`font-mincho font-black text-[6.5rem] leading-none tabular-nums ${
             urgent ? 'text-shu animate-urgent' : 'text-kinari'
           }`}
         >

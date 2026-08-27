@@ -1,21 +1,22 @@
 @import 'tailwindcss';
 
 @theme {
-  /* 墨と生成り。暗い部屋でも明るい部屋でも目が痛くならない濃度に寄せている */
-  --color-sumi: #16130f;
-  --color-sumi-raised: #201b15;
-  --color-sumi-edge: #2e2820;
-  --color-kinari: #f2ece1;
-  --color-kinari-dim: #a2988a;
-  --color-kinari-faint: #6b6459;
+  /* しろ地。文字は真っ黒だと紙に見えないので墨より淡く、罫はさらに落とす */
+  --color-sumi: #ffffff;
+  --color-sumi-raised: #f7f6f4;
+  --color-sumi-edge: #eae8e5;
+  --color-kinari: #3d3b38;
+  --color-kinari-dim: #78746f;
+  --color-kinari-faint: #8f8b85;
 
-  /* 差し色は朱ひとつ。金は勝者と得点のためだけに使う */
-  --color-shu: #d2452e;
-  --color-shu-deep: #a3301f;
-  --color-kin: #c8a24a;
-  --color-ai: #3c5a6e;
+  /* 色は二つだけ。shu は印と罫、shu-deep は白文字を乗せる面 */
+  --color-shu: #dd6551;
+  --color-shu-deep: #c4543f;
+  --color-shu-press: #a8462f;
+  --color-kin: #5e7c99;
+  --color-ai: #5e7c99;
 
-  --font-mincho: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-mincho: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', sans-serif;
   --font-gothic: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', sans-serif;
 }
 
@@ -62,13 +63,18 @@
   input {
     font-family: inherit;
   }
+
+  /*
+   * 見出し書体。Tailwind の font-* は太さを持たないので下限をここで足している。
+   * utilities ではなく base に置くのは、同じ層だと後勝ちで font-black が効かなくなるため。
+   */
+  .font-mincho {
+    font-family: var(--font-mincho);
+    font-weight: 700;
+  }
 }
 
 @layer utilities {
-  .font-mincho {
-    font-family: var(--font-mincho);
-  }
-
   /* 見出しの脇に引く罫。紙面の区切りを模している */
   .rule-heading {
     display: flex;
@@ -79,7 +85,7 @@
     content: '';
     flex: 1;
     height: 1px;
-    background: color-mix(in srgb, var(--color-kinari) 18%, transparent);
+    background: color-mix(in srgb, var(--color-kinari) 12%, transparent);
   }
 
   @keyframes press-in {

@@ -64,7 +64,7 @@ function RoomScreen() {
   return (
     <div className="flex flex-1 flex-col">
       {status === 'reconnecting' && (
-        <p className="bg-shu-deep py-1.5 text-center text-xs tracking-wider text-kinari">
+        <p className="bg-shu-deep py-1.5 text-center text-xs tracking-wider text-white">
           つなぎ直しています…
         </p>
       )}

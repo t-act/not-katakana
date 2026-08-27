@@ -12,7 +12,7 @@ export function ScoreBoard() {
   const roundNumber = Math.min(room.rounds_played + 1, room.total_rounds)
 
   return (
-    <header className="border-b border-sumi-edge bg-sumi-raised/60 px-4 py-2.5 backdrop-blur-sm">
+    <header className="border-b border-sumi-edge bg-sumi-raised px-4 py-2.5">
       <div className="mb-2 flex items-center justify-between text-[0.7rem] tracking-[0.2em] text-kinari-faint">
         <span>
           {room.current_lap}周目 ・ {roundNumber}/{room.total_rounds}
