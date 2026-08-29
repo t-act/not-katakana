@@ -23,9 +23,7 @@ export function RoundReadyScreen() {
               {room.settings.time_limit_sec}秒で説明します
             </p>
             <p className="animate-rise mt-6 max-w-xs text-sm leading-7 text-kinari-dim">
-              かたかなを使わずに。
-              <br />
-              みんなの顔が上がってから開いてください。
+              カタカナを使わずに。
             </p>
           </>
         ) : (
