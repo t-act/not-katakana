@@ -5,15 +5,6 @@ import { Button } from '../components/Button'
 import { Heading, Screen } from '../components/Screen'
 import { useGameStore, useIsHost } from '../store/gameStore'
 import { LAP_CHOICES, MAX_PLAYERS, MIN_PLAYERS, TIME_LIMIT_CHOICES } from '../ws/protocol'
-import type { Room } from '../ws/protocol'
-
-/** 説明と結果表示を含めた 1 ラウンドの実測に近い上乗せ (秒) */
-const OVERHEAD_SEC_PER_ROUND = 30
-
-function estimateMinutes(room: Room): number {
-  const perRound = room.settings.time_limit_sec + OVERHEAD_SEC_PER_ROUND
-  return Math.max(1, Math.round((room.players.length * room.settings.total_laps * perRound) / 60))
-}
 
 export function LobbyScreen() {
   const room = useGameStore((s) => s.room)!
@@ -62,7 +53,7 @@ export function LobbyScreen() {
           />
         )}
         <Button variant="quiet" className="mt-2" onClick={share}>
-          {copied ? 'ひかえました' : 'この輪をわたす'}
+          {copied ? '共有済み' : ''}
         </Button>
       </div>
 
@@ -104,11 +95,6 @@ export function LobbyScreen() {
           disabled={!isHost}
           onSelect={(v) => send({ type: 'update_settings', total_laps: v })}
         />
-        <p className="text-xs leading-6 text-kinari-faint">
-          全部で {room.total_rounds} 番勝負。おおよそ {estimateMinutes(room)} 分。
-          <br />
-          全員が同じ回数だけ説明役をつとめて終わります。
-        </p>
       </div>
 
       <div className="mt-auto">
