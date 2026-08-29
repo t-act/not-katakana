@@ -96,7 +96,7 @@ function ListenerView() {
         <p className="mt-12 max-w-[16rem] text-center text-sm leading-7 text-kinari-dim">
           わかったら声に出してください。
           <br />
-          かたかなが出たら、その場で指摘を。
+          カタカナが出たら、その場で指摘を。
         </p>
       </div>
     </Screen>
