@@ -30,17 +30,36 @@ export function TopScreen() {
   return (
     <Screen>
       <div className="flex flex-1 flex-col justify-center">
-        <div className="animate-rise mb-14 border-l-2 border-shu pl-5">
-          <h1 className="font-mincho font-black text-5xl leading-[1.15] tracking-tight text-kinari">
-            NOT
-            <br />
-            カタカナ
-          </h1>
-          <p className="mt-5 text-sm leading-7 text-kinari-dim">
-            出たことばを、カタカナを使わずに説明する。
-            <br />
-            まわりの人が言い当てたら、その人に一点。
-          </p>
+        <div className="animate-rise mb-14 border-shu pl-5">
+          {/* 題字はアイコンと同じ仕草で打ち消す。斜線は inline-block の箱の対角に引く */}
+          <div className="relative inline-block">
+            <h1 className="font-mincho font-black text-5xl leading-[1.15] tracking-tight text-kinari">
+              NOT
+              <br />
+              カタカナ
+            </h1>
+            {/*
+             * 太さを字の大きさに揃えたいので non-scaling-stroke。
+             * preserveAspectRatio を切ると縦横で伸び方が変わり、線だけ歪むため。
+             * svg は既定の 300x150 を持つので、inset だけでは箱に追従しない。
+             */}
+            <svg
+              className="pointer-events-none absolute -inset-x-2 -inset-y-1 h-[calc(100%+0.5rem)] w-[calc(100%+1rem)]"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <line
+                x1="0"
+                y1="0"
+                x2="100"
+                y2="100"
+                className="stroke-shu"
+                strokeWidth="6"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+          </div>
         </div>
 
         <div className="animate-rise space-y-3" style={{ animationDelay: '80ms' }}>
@@ -79,11 +98,6 @@ export function TopScreen() {
         {error && <p className="mt-5 text-sm leading-6 text-shu">{error}</p>}
       </div>
 
-      <p className="mt-10 text-center text-[0.7rem] leading-5 text-kinari-faint">
-        同じ場所に集まって遊ぶための道具です。
-        <br />
-        説明も回答も、声でどうぞ。
-      </p>
     </Screen>
   )
 }
