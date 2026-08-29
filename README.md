@@ -38,6 +38,44 @@ Cloudflare Worker (Python)
 
 フロントと API を同じ Worker に載せているため、同一オリジンになり CORS 設定も接続先の切り替えも不要です。
 
+### 技術スタック
+
+| 層 | 使うもの |
+| --- | --- |
+| 実行基盤 | Cloudflare Workers (Python)、Durable Objects (SQLite storage) |
+| サーバー | FastAPI、Pydantic v2 |
+| 画面 | React 19、TypeScript、Vite、Tailwind CSS v4、Zustand、React Router |
+| 補助 | vite-plugin-pwa (ホーム画面への追加)、qrcode (合いことばの二次元コード) |
+| 開発 | uv、pytest、Ruff、pywrangler |
+
+### ディレクトリ構成
+
+```
+backend/
+├── src/
+│   ├── entry.py       Worker の入口。/api と /ws を振り分ける
+│   ├── api.py         ルームコードを発行する HTTP API
+│   ├── game_room.py   ルーム 1 つ分の Durable Object
+│   ├── game.py        ゲームのルール (I/O を持たない)
+│   ├── models.py      状態のデータモデル
+│   ├── words.py       お題の抽選
+│   └── words_data.py  お題の語彙
+└── tests/             ルールと抽選の単体テスト
+
+frontend/
+├── public/            アイコン一式
+└── src/
+    ├── screens/       画面 (はじめ・待合・説明中・結果 …)
+    ├── components/    画面をまたぐ部品 (ボタン・得点帯・残り時間)
+    ├── store/         Zustand で持つ状態
+    ├── ws/            WebSocket の接続と、やり取りする型
+    ├── hooks/         カウントダウンと画面消灯の抑止
+    └── dev/           開発用の画面ギャラリー (本番の束には入らない)
+
+scripts/               Worker を相手にした通し確認と、相手役の bot
+wrangler.jsonc         Worker とアセット配信の設定
+```
+
 ### 設計上の要点
 
 **お題は説明役の接続にしか送りません。** 状態のブロードキャストは接続ごとに組み立て直し、
@@ -70,6 +108,12 @@ cd frontend && npm run dev
 ```
 
 `http://localhost:5173` を開きます。同じ場所の別の端末から試すときは `npm run dev -- --host` を使ってください。
+
+### 画面を一覧で見る
+
+`http://localhost:5173/dev` に、作り話の状態を流し込んだ全画面の一覧があります。
+サーバーもタイマーも要らないので、配色や字組みだけを続けて見比べられます。
+開発ビルドにしか出ません (`import.meta.env.DEV` で閉じてあります)。
 
 ## テスト
 
