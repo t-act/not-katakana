@@ -12,6 +12,7 @@ import { RoundActiveScreen } from './screens/RoundActiveScreen'
 import { RoundReadyScreen } from './screens/RoundReadyScreen'
 import { RoundResultScreen } from './screens/RoundResultScreen'
 import { TopScreen } from './screens/TopScreen'
+import { DevIndexScreen, DevViewScreen } from './dev/DevGallery'
 import { useGameStore } from './store/gameStore'
 import { loadCredentials } from './ws/client'
 import { FATAL_ERROR_CODES } from './ws/protocol'
@@ -23,6 +24,8 @@ export default function App() {
     <Routes>
       <Route path="/" element={<TopScreen />} />
       <Route path="/r/:code" element={<RoomScreen />} />
+      {import.meta.env.DEV && <Route path="/dev" element={<DevIndexScreen />} />}
+      {import.meta.env.DEV && <Route path="/dev/:view" element={<DevViewScreen />} />}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
@@ -60,6 +63,17 @@ function RoomScreen() {
   if (!room) {
     return <Connecting reconnecting={status === 'reconnecting'} />
   }
+
+  return <RoomView />
+}
+
+/**
+ * 参加が済んだあとの本編。状態は store から読むだけで、接続の世話はしない。
+ * 開発用ギャラリーが同じ組みを出せるよう、join の副作用と分けている。
+ */
+export function RoomView() {
+  const room = useGameStore((s) => s.room)!
+  const status = useGameStore((s) => s.status)
 
   return (
     <div className="flex flex-1 flex-col">
@@ -114,7 +128,7 @@ function Toast() {
   )
 }
 
-function Connecting({ reconnecting }: { reconnecting: boolean }) {
+export function Connecting({ reconnecting }: { reconnecting: boolean }) {
   return (
     <Screen>
       <div className="flex flex-1 items-center justify-center">
@@ -126,7 +140,7 @@ function Connecting({ reconnecting }: { reconnecting: boolean }) {
   )
 }
 
-function FatalError({ message }: { message: string }) {
+export function FatalError({ message }: { message: string }) {
   const navigate = useNavigate()
   return (
     <Screen>
