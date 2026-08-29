@@ -38,7 +38,7 @@ export function NameEntryScreen({ roomCode, onSubmit }: Props) {
             onChange={(e) => setName(e.target.value)}
             maxLength={NAME_MAX_LENGTH}
             autoComplete="off"
-            placeholder="たくと"
+            placeholder="カタカナたろう"
             className="min-h-[max(3.5rem,52px)] w-full rounded-block border border-kinari-faint bg-transparent px-4 font-mincho text-2xl text-kinari placeholder:text-kinari-faint focus:border-kinari focus:outline-none"
           />
           <p className="text-right text-xs text-kinari-faint">
