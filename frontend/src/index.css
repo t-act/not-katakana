@@ -16,6 +16,13 @@
   --color-kin: #5e7c99;
   --color-ai: #5e7c99;
 
+  /*
+   * 角。丸ゴシックの字面に合わせて四角い箱の角を落とす。
+   * block は指で押す大きな面、chip は並べる小さな面に使う
+   */
+  --radius-block: 0.875rem;
+  --radius-chip: 0.625rem;
+
   --font-mincho: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', sans-serif;
   --font-gothic: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', sans-serif;
 }

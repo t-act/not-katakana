@@ -82,7 +82,7 @@ export function TopScreen() {
               spellCheck={false}
               placeholder="AB12CD"
               aria-label="合いことば"
-              className="min-h-[max(3.5rem,52px)] min-w-0 flex-1 border border-kinari-faint bg-transparent px-4 text-center font-mincho text-2xl tracking-[0.3em] text-kinari placeholder:text-kinari-faint focus:border-kinari focus:outline-none"
+              className="min-h-[max(3.5rem,52px)] min-w-0 flex-1 rounded-block border border-kinari-faint bg-transparent px-4 text-center font-mincho text-2xl tracking-[0.3em] text-kinari placeholder:text-kinari-faint focus:border-kinari focus:outline-none"
             />
             <div className="w-24 shrink-0">
               <Button

@@ -113,7 +113,7 @@ function DevView({ name }: { name: string }) {
       {standalone ? standalone.element() : <RoomView />}
       <Link
         to="/dev"
-        className="fixed right-2 bottom-2 z-50 bg-sumi-raised px-2 py-1 font-mono text-[0.65rem] text-kinari-faint opacity-70"
+        className="fixed right-2 bottom-2 z-50 rounded-chip bg-sumi-raised px-2 py-1 font-mono text-[0.65rem] text-kinari-faint opacity-70"
       >
         一覧
       </Link>

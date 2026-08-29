@@ -17,7 +17,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({ variant = 'outline', children, className = '', ...rest }: Props) {
   return (
     <button
-      className={`min-h-[max(3.5rem,52px)] w-full border px-5 py-3.5 text-base tracking-wide transition-colors duration-150 disabled:opacity-35 ${VARIANT_CLASS[variant]} ${className}`}
+      className={`min-h-[max(3.5rem,52px)] w-full rounded-block border px-5 py-3.5 text-base tracking-wide transition-colors duration-150 disabled:opacity-35 ${VARIANT_CLASS[variant]} ${className}`}
       {...rest}
     >
       {children}

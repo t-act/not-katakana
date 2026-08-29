@@ -44,7 +44,7 @@ function MasterView() {
             <button
               key={player.id}
               onClick={() => send({ type: 'answer_correct', answerer_id: player.id })}
-              className="min-h-[max(4rem,60px)] border border-kinari-faint px-3 font-mincho text-xl text-kinari transition-colors active:border-shu active:bg-shu/15"
+              className="min-h-[max(4rem,60px)] rounded-block border border-kinari-faint px-3 font-mincho text-xl text-kinari transition-colors active:border-shu active:bg-shu/15"
             >
               {player.name}
             </button>
@@ -86,7 +86,7 @@ function ListenerView() {
         </p>
         <p className="mt-2 text-sm text-kinari-faint">秒</p>
 
-        <div className="mt-10 h-1 w-40 bg-sumi-edge">
+        <div className="mt-10 h-1 w-40 overflow-hidden rounded-full bg-sumi-edge">
           <div
             className={`h-full origin-left ${urgent ? 'bg-shu' : 'bg-kinari-dim'}`}
             style={{ transform: `scaleX(${Math.max(0, Math.min(1, ratio))})` }}

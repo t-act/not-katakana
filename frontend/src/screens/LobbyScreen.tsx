@@ -131,7 +131,7 @@ function Choices({ label, unit, options, value, disabled, onSelect }: ChoicesPro
             key={option}
             disabled={disabled}
             onClick={() => onSelect(option)}
-            className={`min-h-[max(3rem,44px)] flex-1 border text-sm transition-colors disabled:cursor-default ${
+            className={`min-h-[max(3rem,44px)] flex-1 rounded-chip border text-sm transition-colors disabled:cursor-default ${
               option === value
                 ? 'border-shu bg-shu/10 text-kinari'
                 : 'border-sumi-edge text-kinari-faint disabled:opacity-40'

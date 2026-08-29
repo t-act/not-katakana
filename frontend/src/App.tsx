@@ -121,7 +121,7 @@ function Toast() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-      <p className="animate-rise max-w-md border border-shu bg-sumi-raised px-4 py-3 text-center text-sm text-kinari shadow-lg">
+      <p className="animate-rise max-w-md rounded-block border border-shu bg-sumi-raised px-4 py-3 text-center text-sm text-kinari shadow-lg">
         {error.message}
       </p>
     </div>

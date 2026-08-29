@@ -32,7 +32,7 @@ export function TimerBar({ deadlineMs, totalSec, offsetMs, compact = false }: Pr
           <span className="ml-1 text-base text-kinari-dim">秒</span>
         </span>
       </div>
-      <div className="h-1 w-full bg-sumi-edge">
+      <div className="h-1 w-full overflow-hidden rounded-full bg-sumi-edge">
         <div
           className={`h-full origin-left ${urgent ? 'bg-shu' : 'bg-kinari-dim'}`}
           style={{ transform: `scaleX(${ratio})` }}
