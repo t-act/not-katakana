@@ -10,8 +10,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'カタカナ抜き',
-        short_name: 'カタカナ抜き',
+        name: 'NOT カタカナ',
+        short_name: 'NOT カタカナ',
         description: 'カタカナ語を使わずに説明して当ててもらう、対面で遊ぶ言葉あそび',
         lang: 'ja',
         display: 'standalone',

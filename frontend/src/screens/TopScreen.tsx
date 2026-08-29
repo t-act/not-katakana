@@ -32,9 +32,9 @@ export function TopScreen() {
       <div className="flex flex-1 flex-col justify-center">
         <div className="animate-rise mb-14 border-l-2 border-shu pl-5">
           <h1 className="font-mincho font-black text-5xl leading-[1.15] tracking-tight text-kinari">
-            カタカナ
+            NOT
             <br />
-            抜き
+            カタカナ
           </h1>
           <p className="mt-5 text-sm leading-7 text-kinari-dim">
             出たことばを、カタカナを使わずに説明する。

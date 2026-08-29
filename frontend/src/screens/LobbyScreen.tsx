@@ -37,7 +37,7 @@ export function LobbyScreen() {
 
   const share = async () => {
     if (navigator.share) {
-      await navigator.share({ title: 'カタカナ抜き', url: shareUrl }).catch(() => {})
+      await navigator.share({ title: 'NOT カタカナ', url: shareUrl }).catch(() => {})
       return
     }
     await navigator.clipboard.writeText(shareUrl).catch(() => {})
