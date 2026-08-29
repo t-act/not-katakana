@@ -23,6 +23,7 @@ dist-ssr/
 .DS_Store
 .vscode/
 .idea/
+.claude
 
 # pywrangler が作る作業領域
 .venv-workers/
