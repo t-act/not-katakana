@@ -48,13 +48,13 @@ def join(room: Room, player_id: str, name: str) -> Player:
         return existing
 
     if room.phase != "lobby":
-        raise GameError("game_started", "ゲームの開始後は参加できません")
+        raise GameError("game_started", "もう始まっています")
     if len(room.players) >= MAX_PLAYERS:
-        raise GameError("room_full", f"このルームは最大 {MAX_PLAYERS} 人までです")
+        raise GameError("room_full", f"このへやは {MAX_PLAYERS} 人までです")
 
     normalized_name = name.strip()
     if not normalized_name or len(normalized_name) > NAME_MAX_LENGTH:
-        raise GameError("invalid_name", f"名前は 1〜{NAME_MAX_LENGTH} 文字で入力してください")
+        raise GameError("invalid_name", f"名前は 1〜{NAME_MAX_LENGTH} 文字にしてください")
 
     player = Player(id=player_id, name=normalized_name, order=len(room.players))
     room.players.append(player)
@@ -83,10 +83,10 @@ def update_settings(
 
     if time_limit_sec is not None and time_limit_sec not in ALLOWED_TIME_LIMIT_SEC:
         raise GameError(
-            "invalid_settings", f"制限時間は {ALLOWED_TIME_LIMIT_SEC} から選んでください"
+            "invalid_settings", f"持ち時間は {ALLOWED_TIME_LIMIT_SEC} から選んでください"
         )
     if total_laps is not None and not MIN_LAPS <= total_laps <= MAX_LAPS:
-        raise GameError("invalid_settings", f"周回数は {MIN_LAPS}〜{MAX_LAPS} で指定してください")
+        raise GameError("invalid_settings", f"まわす回数は {MIN_LAPS}〜{MAX_LAPS} 周までです")
 
     room.settings = RoomSettings(
         time_limit_sec=time_limit_sec or room.settings.time_limit_sec,
@@ -98,7 +98,7 @@ def start_game(room: Room, actor_id: str) -> None:
     _require_host(room, actor_id)
     _require_phase(room, "lobby")
     if len(room.players) < MIN_PLAYERS:
-        raise GameError("not_enough_players", f"開始には {MIN_PLAYERS} 人以上必要です")
+        raise GameError("not_enough_players", f"はじめるには {MIN_PLAYERS} 人からです")
 
     _reset_progress(room)
     room.phase = "round_ready"
@@ -130,9 +130,9 @@ def answer_correct(room: Room, actor_id: str, answerer_id: str) -> None:
 
     answerer = room.find_player(answerer_id)
     if answerer is None:
-        raise GameError("unknown_player", "その参加者は見つかりません")
+        raise GameError("unknown_player", "その人が見つかりません")
     if answerer.id == room.master_id:
-        raise GameError("self_answer", "マスター自身を正解者にはできません")
+        raise GameError("self_answer", "説明役は自分を選べません")
 
     answerer.score += 1
     _finish_round(room, "correct", answerer_id=answerer.id)
@@ -221,7 +221,7 @@ def _reset_progress(room: Room) -> None:
 
 def _require_host(room: Room, actor_id: str) -> None:
     if actor_id != room.host_id:
-        raise GameError("not_host", "ホストだけが操作できます")
+        raise GameError("not_host", "まとめ役だけが進められます")
 
 
 def _require_master(room: Room, actor_id: str) -> None:
@@ -233,9 +233,10 @@ def _require_master(room: Room, actor_id: str) -> None:
     master = room.players[room.master_index]
     if actor_id == master.id or not master.connected:
         return
-    raise GameError("not_master", "マスターだけが操作できます")
+    raise GameError("not_master", "説明役だけが進められます")
 
 
 def _require_phase(room: Room, expected: str) -> None:
     if room.phase != expected:
-        raise GameError("wrong_phase", f"いまはその操作はできません (phase={room.phase})")
+        # phase は内部の名前なので player には出さない
+        raise GameError("wrong_phase", "いまはその操作はできません")

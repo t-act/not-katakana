@@ -25,7 +25,7 @@ class Default(WorkerEntrypoint):
         if path.startswith(WS_PREFIX):
             room_code = path[len(WS_PREFIX) :]
             if not room_code:
-                return Response("ルームコードがありません", status=400)
+                return Response("合いことばがありません", status=400)
             room_id = self.env.GAME_ROOM.idFromName(room_code)
             return await self.env.GAME_ROOM.get(room_id).fetch(request)
 

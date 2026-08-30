@@ -47,7 +47,7 @@ class GameRoom(DurableObject):
 
         credentials = self._authenticate(query)
         if credentials is None:
-            return _reject(client, server, "bad_token", "認証に失敗しました。参加し直してください")
+            return _reject(client, server, "bad_token", "合いことばから入り直してください")
 
         player_id, token, is_new = credentials
         try:
@@ -86,7 +86,9 @@ class GameRoom(DurableObject):
             ws.send(_error_message(e.code, e.message))
             return
         except (ValueError, KeyError, TypeError) as e:
-            ws.send(_error_message("bad_request", f"要求を解釈できません: {e}"))
+            # 例外の文面は player に見せない。開発者向けの手掛かりはログに残す
+            print(f"bad_request: {e}")
+            ws.send(_error_message("bad_request", "受け取れませんでした"))
             return
 
         await self._persist()
@@ -135,7 +137,7 @@ class GameRoom(DurableObject):
         elif action == "restart_game":
             game.restart_game(room, player_id)
         else:
-            raise GameError("unknown_action", f"知らない操作です: {action}")
+            raise GameError("unknown_action", "知らない操作です")
 
     def _authenticate(self, query: dict) -> tuple[str, str, bool] | None:
         """(player_id, token, 新規かどうか) を返す。照合に失敗したら None。
