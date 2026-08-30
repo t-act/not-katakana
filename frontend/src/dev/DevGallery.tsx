@@ -27,7 +27,7 @@ const STANDALONE: Record<string, { label: string; element: () => ReactElement }>
   },
   'fatal-error': {
     label: '入れなかった',
-    element: () => <FatalError message="この輪はもう始まっています" />,
+    element: () => <FatalError message="もう始まっています" />,
   },
 }
 
@@ -62,7 +62,7 @@ function Section({
 }) {
   return (
     <section className="mb-8">
-      <h2 className="rule-heading mb-3 text-[0.7rem] tracking-[0.3em] text-kinari-faint">
+      <h2 className="rule-heading mb-3 label text-kinari-faint">
         {title}
       </h2>
       <ol className="divide-y divide-sumi-edge border-y border-sumi-edge">
@@ -73,7 +73,7 @@ function Section({
               className="flex items-baseline justify-between gap-3 py-3 text-sm text-kinari"
             >
               <span>{labels[key].label}</span>
-              <span className="font-mono text-[0.7rem] text-kinari-faint">{key}</span>
+              <span className="label text-kinari-faint font-mono">{key}</span>
             </Link>
           </li>
         ))}

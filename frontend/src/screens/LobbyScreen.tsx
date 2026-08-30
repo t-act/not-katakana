@@ -43,8 +43,8 @@ export function LobbyScreen() {
       <Heading>あつまる</Heading>
 
       <div className="animate-rise mb-8 text-center">
-        <p className="mb-1 text-[0.7rem] tracking-[0.3em] text-kinari-faint">合いことば</p>
-        <p className="font-mincho text-4xl tracking-[0.3em] text-kinari">{room.code}</p>
+        <p className="mb-1 label text-kinari-faint">合いことば</p>
+        <p className="font-mincho text-4xl tracking-code text-kinari">{room.code}</p>
         {qr && (
           <img
             src={qr}
@@ -53,12 +53,12 @@ export function LobbyScreen() {
           />
         )}
         <Button variant="quiet" className="mt-2" onClick={share}>
-          {copied ? '共有済み' : ''}
+          {copied ? '写しました' : '合いことばを送る'}
         </Button>
       </div>
 
-      <Heading>いま {room.players.length} 人</Heading>
-      <ol className="animate-rise mb-8 divide-y divide-sumi-edge border-y border-sumi-edge">
+      <Heading>いま{room.players.length}人</Heading>
+      <ol className="mb-8 divide-y divide-sumi-edge border-y border-sumi-edge">
         {room.players.map((player, index) => (
           <li key={player.id} className="flex items-center gap-3 py-3">
             <span className="font-mincho text-sm text-kinari-faint">{index + 1}</span>
@@ -66,13 +66,13 @@ export function LobbyScreen() {
               {player.name}
             </span>
             {player.id === room.host_id && (
-              <span className="text-[0.7rem] tracking-[0.2em] text-shu">まとめ役</span>
+              <span className="label text-shu">まとめ役</span>
             )}
           </li>
         ))}
         {room.players.length < MAX_PLAYERS && (
           <li className="py-3 text-sm text-kinari-faint">
-            あと {MAX_PLAYERS - room.players.length} 人まで入れます
+            あと{MAX_PLAYERS - room.players.length}人まで入れます
           </li>
         )}
       </ol>
@@ -100,7 +100,7 @@ export function LobbyScreen() {
       <div className="mt-auto">
         {isHost ? (
           <Button variant="primary" disabled={!enoughPlayers} onClick={() => send({ type: 'start_game' })}>
-            {enoughPlayers ? 'はじめる' : `あと ${MIN_PLAYERS - room.players.length} 人待ちます`}
+            {enoughPlayers ? 'はじめる' : `あと${MIN_PLAYERS - room.players.length}人待ちます`}
           </Button>
         ) : (
           <p className="py-4 text-center text-sm text-kinari-dim">

@@ -17,8 +17,8 @@ export function NameEntryScreen({ roomCode, onSubmit }: Props) {
     <Screen>
       <div className="flex flex-1 flex-col justify-center">
         <div className="animate-rise mb-10">
-          <p className="mb-2 text-[0.7rem] tracking-[0.3em] text-kinari-faint">合いことば</p>
-          <p className="font-mincho text-3xl tracking-[0.3em] text-kinari">{roomCode}</p>
+          <p className="mb-2 label text-kinari-faint">合いことば</p>
+          <p className="font-mincho text-3xl tracking-code text-kinari">{roomCode}</p>
         </div>
 
         <form
@@ -29,7 +29,7 @@ export function NameEntryScreen({ roomCode, onSubmit }: Props) {
             if (trimmed) onSubmit(trimmed)
           }}
         >
-          <label className="block text-sm text-kinari-dim" htmlFor="player-name">
+          <label text-kinari-faint className="block text-sm text-kinari-dim" htmlFor="player-name">
             画面に出る名前
           </label>
           <input
@@ -41,9 +41,12 @@ export function NameEntryScreen({ roomCode, onSubmit }: Props) {
             placeholder="カタカナたろう"
             className="min-h-[max(3.5rem,52px)] w-full rounded-block border border-kinari-faint bg-transparent px-4 font-mincho text-2xl text-kinari placeholder:text-kinari-faint focus:border-kinari focus:outline-none"
           />
-          <p className="text-right text-xs text-kinari-faint">
-            {trimmed.length} / {NAME_MAX_LENGTH}
-          </p>
+          {/* maxLength で打ち止めなので、上限が見えてきたときだけ数える */}
+          {trimmed.length >= NAME_MAX_LENGTH - 3 && (
+            <p className="text-right text-xs text-kinari-faint">
+              あと{NAME_MAX_LENGTH - trimmed.length}文字
+            </p>
+          )}
           <Button variant="primary" type="submit" disabled={!trimmed}>
             この名前で入る
           </Button>

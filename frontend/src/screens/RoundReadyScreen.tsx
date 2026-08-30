@@ -11,28 +11,28 @@ export function RoundReadyScreen() {
 
   return (
     <Screen>
-      <div className="flex flex-1 flex-col items-center justify-center text-center">
+      <div className="animate-rise flex flex-1 flex-col items-center justify-center text-center">
         {isMaster ? (
           <>
-            <p className="animate-rise mb-3 text-[0.7rem] tracking-[0.35em] text-shu">
+            <p className="mb-3 label text-shu">
               あなたの番です
             </p>
-            <p className="animate-rise font-mincho text-3xl leading-relaxed text-kinari">
+            <p className="font-mincho text-3xl leading-relaxed text-kinari">
               ことばを開いたら
               <br />
               {room.settings.time_limit_sec}秒で説明します
             </p>
-            <p className="animate-rise mt-6 max-w-xs text-sm leading-7 text-kinari-dim">
+            <p className="mt-6 max-w-xs text-sm leading-7 text-kinari-dim">
               カタカナを使わずに。
             </p>
           </>
         ) : (
           <>
-            <p className="animate-rise mb-3 text-[0.7rem] tracking-[0.35em] text-kinari-faint">
+            <p className="mb-3 label text-kinari-faint">
               つぎの説明役
             </p>
-            <p className="animate-rise font-mincho text-4xl text-kinari">{master?.name}</p>
-            <p className="animate-rise mt-6 text-sm leading-7 text-kinari-dim">
+            <p className="font-mincho text-4xl text-kinari">{master?.name}</p>
+            <p className="mt-6 text-sm leading-7 text-kinari-dim">
               画面ではなく、{master?.name}さんを見ていてください。
             </p>
           </>

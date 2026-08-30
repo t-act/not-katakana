@@ -79,7 +79,7 @@ export function RoomView() {
     <div className="flex flex-1 flex-col">
       {status === 'reconnecting' && (
         <p className="bg-shu-deep py-1.5 text-center text-xs tracking-wider text-white">
-          つなぎ直しています…
+          つなぎ直しています
         </p>
       )}
       <ScoreBoard />
@@ -132,7 +132,7 @@ export function Connecting({ reconnecting }: { reconnecting: boolean }) {
   return (
     <Screen>
       <div className="flex flex-1 items-center justify-center">
-        <p className="animate-urgent font-mincho text-lg tracking-[0.3em] text-kinari-faint">
+        <p className="animate-urgent font-mincho text-lg tracking-label text-kinari-faint">
           {reconnecting ? 'つなぎ直しています' : 'つないでいます'}
         </p>
       </div>

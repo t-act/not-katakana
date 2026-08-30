@@ -11,7 +11,7 @@ export function Screen({ children }: { children: ReactNode }) {
 
 export function Heading({ children }: { children: ReactNode }) {
   return (
-    <h2 className="rule-heading mb-5 font-mincho text-[0.95rem] tracking-[0.25em] text-kinari-dim">
+    <h2 className="rule-heading mb-5 font-mincho text-sm tracking-label text-kinari-dim">
       {children}
     </h2>
   )

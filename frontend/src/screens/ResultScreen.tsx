@@ -19,14 +19,15 @@ export function ResultScreen() {
   return (
     <Screen>
       <div className="animate-rise mb-10 pt-6 text-center">
-        <p className="mb-4 text-[0.7rem] tracking-[0.35em] text-kinari-faint">
+        <p className="mb-4 label text-kinari-faint">
           {room.settings.total_laps}周 おわり
         </p>
-        <p className="font-mincho font-black text-[2.5rem] leading-tight text-kin">
+        {/* 名前と結びで 1 文。行で割ると、読点のない文が二つあるように見える */}
+        <p className="font-mincho font-black text-4xl leading-snug text-ai">
           {winners.map((w) => w.name).join('・')}
-        </p>
-        <p className="mt-3 text-sm text-kinari-dim">
-          {winners.length > 1 ? 'ならびました' : 'のかち'}
+          <span className="ml-2 text-xl text-kinari-dim">
+            {winners.length > 1 ? 'がならびました' : 'のかち'}
+          </span>
         </p>
       </div>
 
@@ -38,7 +39,7 @@ export function ResultScreen() {
             <li key={player.id} className="flex items-center gap-3 py-3.5">
               <span
                 className={`w-6 font-mincho text-lg ${
-                  player.score === topScore ? 'text-kin' : 'text-kinari-faint'
+                  player.score === topScore ? 'text-ai' : 'text-kinari-faint'
                 }`}
               >
                 {rank}
@@ -47,8 +48,8 @@ export function ResultScreen() {
                 {player.name}
                 {player.id === playerId && <span className="text-kinari-faint">（あなた）</span>}
               </span>
+              {/* 単位は見出しの「てんすう」で足りるので、行ごとには繰り返さない */}
               <span className="font-mincho text-xl tabular-nums text-kinari">{player.score}</span>
-              <span className="text-xs text-kinari-faint">点</span>
             </li>
           )
         })}

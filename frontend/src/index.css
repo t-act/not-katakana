@@ -13,7 +13,7 @@
   --color-shu: #dd6551;
   --color-shu-deep: #c4543f;
   --color-shu-press: #a8462f;
-  --color-kin: #5e7c99;
+  /* 藍。得点だけに使う。急かす朱と、ただ数える藍を役割で分ける */
   --color-ai: #5e7c99;
 
   /*
@@ -25,6 +25,16 @@
 
   --font-mincho: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', sans-serif;
   --font-gothic: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+
+  /*
+   * 字間。かなを開くと読みが遅くなるので和文はほぼ詰めたまま。
+   * 開けるのは合いことばだけで、英数 6 桁を一字ずつ読み上げて伝えるため
+   */
+  --tracking-label: 0.04em;
+  --tracking-code: 0.22em;
+
+  /* お題。語彙の最長が 9 文字なので、その幅でも折り返さない大きさに収める */
+  --text-odai: clamp(1.85rem, 8.4vw, 2.75rem);
 }
 
 @layer base {
@@ -42,17 +52,6 @@
     font-feature-settings: 'palt';
     overscroll-behavior: none;
     -webkit-font-smoothing: antialiased;
-  }
-
-  /* 紙の粒立ち。単色の面が続くと画面が安っぽく見えるので薄く敷く */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   #root {
@@ -82,6 +81,15 @@
 }
 
 @layer utilities {
+  /*
+   * 画面の頭に置く小さな見出し。全画面でこれ 1 つを使う。
+   * 役割ごとに寸法を持たせないと、足すたびに近くて違う値が増える
+   */
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: var(--tracking-label);
+  }
+
   /* 見出しの脇に引く罫。紙面の区切りを模している */
   .rule-heading {
     display: flex;

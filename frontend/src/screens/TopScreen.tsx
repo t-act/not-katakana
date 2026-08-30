@@ -22,7 +22,7 @@ export function TopScreen() {
       const { code: newCode } = (await response.json()) as { code: string }
       navigate(`/r/${newCode}`)
     } catch {
-      setError('ルームを作れませんでした。通信を確かめてもう一度お試しください')
+      setError('へやを作れませんでした。つながりを確かめて、もう一度')
       setBusy(false)
     }
   }
@@ -30,7 +30,7 @@ export function TopScreen() {
   return (
     <Screen>
       <div className="flex flex-1 flex-col justify-center">
-        <div className="animate-rise mb-14 border-shu pl-5">
+        <div className="animate-rise mb-14">
           {/* 題字はアイコンと同じ仕草で打ち消す。斜線は inline-block の箱の対角に引く */}
           <div className="relative inline-block">
             <h1 className="font-mincho font-black text-5xl leading-[1.15] tracking-tight text-kinari">
@@ -64,10 +64,10 @@ export function TopScreen() {
 
         <div className="animate-rise space-y-3" style={{ animationDelay: '80ms' }}>
           <Button variant="primary" onClick={createRoom} disabled={busy}>
-            {busy ? '用意しています…' : 'あたらしく始める'}
+            {busy ? '用意しています' : 'あたらしく始める'}
           </Button>
 
-          <div className="rule-heading pt-6 pb-1 text-[0.7rem] tracking-[0.3em] text-kinari-faint">
+          <div className="rule-heading pt-6 pb-1 label text-kinari-faint">
             さそわれた人はこちら
           </div>
 
@@ -82,7 +82,7 @@ export function TopScreen() {
               spellCheck={false}
               placeholder="AB12CD"
               aria-label="合いことば"
-              className="min-h-[max(3.5rem,52px)] min-w-0 flex-1 rounded-block border border-kinari-faint bg-transparent px-4 text-center font-mincho text-2xl tracking-[0.3em] text-kinari placeholder:text-kinari-faint focus:border-kinari focus:outline-none"
+              className="min-h-[max(3.5rem,52px)] min-w-0 flex-1 rounded-block border border-kinari-faint bg-transparent px-4 text-center font-mincho text-2xl tracking-code text-kinari placeholder:text-kinari-faint focus:border-kinari focus:outline-none"
             />
             <div className="w-24 shrink-0">
               <Button
