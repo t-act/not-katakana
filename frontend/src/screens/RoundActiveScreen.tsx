@@ -1,7 +1,7 @@
 import { Button } from '../components/Button'
 import { Screen } from '../components/Screen'
 import { TimerBar } from '../components/TimerBar'
-import { useCountdown } from '../hooks/useCountdown'
+import { useTimer } from '../hooks/useCountdown'
 import { useGameStore, useIsMaster, useMaster } from '../store/gameStore'
 
 export function RoundActiveScreen() {
@@ -24,21 +24,20 @@ function MasterView() {
         compact
       />
 
-      <div className="flex flex-1 flex-col items-center justify-center py-10">
-        <p className="mb-4 text-[0.7rem] tracking-[0.35em] text-kinari-faint">おだい</p>
+      {/* 時間とお題をひと塊にして上へ。空きは操作との間に落として読む順を作る */}
+      <div className="flex flex-1 flex-col items-center pt-14">
+        <p className="mb-4 label text-kinari-faint">おだい</p>
+        {/* 折り返すと目が二度動く。語彙の最長 9 文字が 1 行に収まる大きさで刷る */}
         <p
           key={room.current_word?.id}
-          className="animate-press-in text-center font-mincho font-black text-[2.75rem] leading-tight tracking-tight text-kinari"
+          className="animate-press-in text-center font-mincho font-black text-odai leading-tight text-kinari"
         >
           {room.current_word?.word ?? '…'}
         </p>
-        <div className="mt-6 h-px w-16 bg-shu" />
       </div>
 
       <div>
-        <p className="mb-2.5 text-[0.7rem] tracking-[0.25em] text-kinari-faint">
-          当てた人を押してください
-        </p>
+        <p className="mb-2.5 label text-kinari-faint">当てた人を押してください</p>
         <div className="grid grid-cols-2 gap-2.5">
           {others.map((player) => (
             <button
@@ -66,30 +65,30 @@ function ListenerView() {
   const room = useGameStore((s) => s.room)!
   const offset = useGameStore((s) => s.serverOffsetMs)
   const master = useMaster()
-  const remaining = useCountdown(room.deadline_ms, offset)
-  const ratio = remaining / room.settings.time_limit_sec
-  const urgent = ratio <= 0.25
+  const { remainingSec, ratio, urgent } = useTimer(
+    room.deadline_ms,
+    room.settings.time_limit_sec,
+    offset,
+  )
 
   return (
     <Screen>
       <div className="flex flex-1 flex-col items-center justify-center">
-        <p className="mb-8 text-center font-mincho text-2xl text-kinari">
-          {master?.name}さんの説明
-        </p>
+        <p className="mb-8 text-center font-mincho text-2xl text-kinari">{master?.name}さんの説明</p>
 
         <p
           className={`font-mincho font-black text-[6.5rem] leading-none tabular-nums ${
             urgent ? 'text-shu animate-urgent' : 'text-kinari'
           }`}
         >
-          {Math.ceil(remaining)}
+          {Math.ceil(remainingSec)}
         </p>
         <p className="mt-2 text-sm text-kinari-faint">秒</p>
 
         <div className="mt-10 h-1 w-40 overflow-hidden rounded-full bg-sumi-edge">
           <div
             className={`h-full origin-left ${urgent ? 'bg-shu' : 'bg-kinari-dim'}`}
-            style={{ transform: `scaleX(${Math.max(0, Math.min(1, ratio))})` }}
+            style={{ transform: `scaleX(${ratio})` }}
           />
         </div>
 
